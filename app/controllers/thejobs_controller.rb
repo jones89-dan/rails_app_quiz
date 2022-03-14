@@ -5,7 +5,7 @@ class ThejobsController < ApplicationController
   def create
     new_job = Job.create(url: params[:url], 
                          employer_name: params[:employer_name], 
-                         employee_description: params[:employee_description],
+                         employer_description: params[:employer_description],
                          job_title: params[:job_title],
                          job_description: params[:job_description],
                          year_of_experience: params[:year_of_experience],
@@ -17,4 +17,10 @@ class ThejobsController < ApplicationController
 
     render json: params
   end
+
+  def show
+    show_job = Job.find_by(id: params[:id])
+    
+    render json: show_job.employer_name
+  end 
 end
