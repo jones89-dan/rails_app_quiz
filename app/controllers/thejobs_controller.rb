@@ -3,7 +3,7 @@ class ThejobsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    new_job = Job.create(url: params[:url], 
+    @new_job = Job.create(url: params[:url], 
                          employer_name: params[:employer_name], 
                          employer_description: params[:employer_description],
                          job_title: params[:job_title],
@@ -15,12 +15,18 @@ class ThejobsController < ApplicationController
                          employment_type_id: params[:employment_type_id] 
                         )
 
-    render json: params
+    render 'thejobs/create'
   end
 
   def show
-    show_job = Job.find_by(id: params[:id])
+    @show_job = Job.find_by(id: params[:id])
     
-    render json: show_job.employer_name
+    render 'thejobs/show'
   end 
+
+  def index
+    @show_index = Job.all
+    
+    render 'thejobs/index'
+  end
 end
